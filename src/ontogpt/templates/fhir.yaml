@@ -1,0 +1,43 @@
+id: http://w3id.org/ontogpt/fhir_AD
+name: fhir_AD
+title: FHIR Template for AD
+description: >-
+  A FHIR template for AAlzheimer's disease
+license: https://creativecommons.org/publicdomain/zero/1.0/
+prefixes:
+  FHIR: http://hl7.org/fhir/
+
+default_prefix: FHIR
+default_range: string
+
+imports:
+  - linkml:types
+  - core
+
+classes:
+  Bundle:
+    tree_root: true
+    attributes:
+      patient:
+        description: patient information
+        range: Patient
+      diagnosticReport:
+        description: results for imaging
+        range: DiagnosticReport
+  Patient:
+    is_a: NamedEntity
+    id_prefixes: 
+      - FHIR
+    attributes:
+      identifier:
+      gender:
+      birthDate:
+      maritalStatus:
+  DiagnosticReport:
+    is_a: NamedEntity
+    id_prefixes: 
+      - FHIR
+    attributes:
+      FDG:
+      AV45:
+      PIB:
