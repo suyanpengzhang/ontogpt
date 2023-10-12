@@ -2,10 +2,12 @@ id: http://w3id.org/ontogpt/fhir_AD
 name: fhir_AD
 title: FHIR Template for AD
 description: >-
-  A FHIR template for AAlzheimer's disease
+  A FHIR template for Alzheimer's disease (ADNI)
 license: https://creativecommons.org/publicdomain/zero/1.0/
 prefixes:
   FHIR: http://hl7.org/fhir/
+  snomedct: http://purl.bioontology.org/ontology/SNOMEDCT/
+  extension: http://hl7.org/fhir/StructureDefinition/
 
 default_prefix: FHIR
 default_range: string
@@ -14,6 +16,7 @@ imports:
   - linkml:types
   - core
 
+  
 classes:
   Bundle:
     tree_root: true
@@ -21,9 +24,21 @@ classes:
       patient:
         description: patient information
         range: Patient
-      diagnosticReport:
-        description: results for imaging
-        range: DiagnosticReport
+      observation:
+        description: results for interviews (e.g., cognitive tests) and imaging (e.g., PET, MRI)
+        range: Observation
+      medicationstatement:
+        description: information of the medications
+        range: MedicationStatement
+      condition:
+        description: information of the diagnosis
+        range: Condition
+      organization:
+        description: information of the site
+        range: Organization
+      encounter:
+        description: information of the visit
+        range: Encounter
   Patient:
     is_a: NamedEntity
     id_prefixes: 
@@ -33,11 +48,181 @@ classes:
       gender:
       birthdate:
       maritalstatus:
-  DiagnosticReport:
+      latino:
+       slot_uri: extension:latino
+      ethnicity:
+       slot_uri: extension:ethnicity
+      education:
+  Observation:
     is_a: NamedEntity
     id_prefixes: 
       - FHIR
     attributes:
       fdg:
+        description: glucose analogue
+        slot_uri: snomedct:725928006
       av45:
+        description: florbetapir
+        slot_uri: snomedct:715173001
       pib:
+        description: Pittsburgh compound B
+        slot_uri: extension:pib
+      entorhinal:
+        description: entorhinal cortex 
+        slot_uri: snomedct:3937002
+      fbb:
+        description: blood-brain barrier
+        slot_uri: snomedct:20245001
+      fusiform:
+        description: fusiform gyrus
+        slot_uri: snomedct:33185006
+      hippocampus:
+        description: hippocampus
+        slot_uri: snomedct:5366008
+      icv:
+        description: Intracranial volume
+        slot_uri: snomedct:303231004
+      midtemp:
+        description: middle temporal gyrus
+        slot_uri: snomedct:35305002
+      ventricles:
+        description:  Ventricular volume
+        slot_uri: snomedct:35764002
+      wholebrain:
+        description: whole brain volume
+        slot_uri: snomedct:816077007
+      abeta:
+        description: amyloid beta
+        slot_uri: snomedct:833337009
+      apoe4:
+        description: apolipoprotein E4
+        slot_uri: snomedct:115519009
+      effective:
+        description: exam date
+      ptau:
+        description: Phospho-Tau (p-Tau)
+        slot_uri: snomedct:707776005
+      tau:
+        description: tau
+        slot_uri: snomedct:412631008
+      adas11:
+        description: Alzheimer’s Disease Assessment Scale (11 questions)
+        slot_uri: extension:adas11
+      adas13:
+        description: Alzheimer’s Disease Assessment Scale (13 questions)
+        slot_uri: extension:adas13
+      adasq4:
+        description: Alzheimer’s Disease Assessment Scale (non-cognitive tests)
+        slot_uri: extension:adasq4
+      cdrsb:
+        description: clinical dementia rating scale–sum of boxes
+        slot_uri: snomedct:273367002 
+      digitscor:
+        description: digit span test score
+        slot_uri: snomedct:283884005
+      ecogptdivatt:
+        description: Everyday Cognition (ECog)  patient reported version (ECogPT), divided attention
+        slot_uri: extension:ecogptdivatt
+      ecogptlang:
+        description: Everyday Cognition (ECog)  patient reported version (ECogPT), langague
+        slot_uri: extension:ecogptlang
+      ecogptmem:
+        description: Everyday Cognition (ECog)  patient reported version (ECogPT), memory
+        slot_uri: extension:ecogptmem
+      ecogptorgan:
+        description: Everyday Cognition (ECog)  patient reported version (ECogPT), organizational
+        slot_uri: extension:ecogptorgan
+      ecogptplan:
+        description: Everyday Cognition (ECog)  patient reported version (ECogPT), planning
+        slot_uri: extension:ecogptplan
+      ecogpttotal:
+        description: Everyday Cognition (ECog)  patient reported version (ECogPT), tottal
+        slot_uri: extension:ecogpttotal
+      ecogptvisspat:
+        description: Everyday Cognition (ECog)  patient reported version (ECogPT), visual-spatial
+        slot_uri: extension:ecogptvisspat
+      ecogspdivatt:
+        description: Everyday Cognition (ECog) the study partner reported version (ECogSP), divided attention
+        slot_uri: extension:ecogspdivatt
+      ecogsplang:
+        description: Everyday Cognition (ECog) the study partner reported version (ECogSP), langague
+        slot_uri: extension:ecogsplang
+      ecogspmem:
+        description: Everyday Cognition (ECog) the study partner reported version (ECogSP), memory
+        slot_uri: extension:ecogspmem
+      ecogsporgan:
+        description: Everyday Cognition (ECog) the study partner reported version (ECogSP), organizational
+        slot_uri: extension:ecogsporgan
+      ecogspplan:
+        description: Everyday Cognition (ECog) the study partner reported version (ECogSP), planning
+        slot_uri: extension:ecogspplan
+      ecogsptotal:
+        description: Everyday Cognition (ECog) the study partner reported version (ECogSP), tottal
+        slot_uri: extension:ecogsptotal
+      ecogspvisspat:
+        description: Everyday Cognition (ECog) the study partner reported version (ECogSP), visual-spatial
+        slot_uri: extension:ecogspvisspat
+      faq:
+        description: The Functional Activities Questionnaire (FAQ)
+        slot_uri: extension:faq
+      ldeltotal:
+        description: Logical Memory (LM), delayed recall
+        slot_uri: extension:ldeltotal
+      mmse:
+        description: A Mini-Mental State Examination (11 questions)
+        slot_uri: snomedct:273617000
+      moca:
+        description: The Montreal Cognitive Assessment (MoCA) test can detect mild cognitive impairment or early signs of dementia.
+        slot_uri: snomedct:1255891005
+      mpaccdigit:
+        description: the Modified Preclinical Alzheimer Cognitive Composite with Digit test (mPACCdigit)
+        slot_uri: extension:mpaccdigit
+      mpacctrailsb:
+        description: Modified Preclinical Alzheimer Cognitive Composite with Trails test (mPACCtrailsB)
+        slot_uri: extension:mpacctrailsb
+      ravlt_forgetting:
+        description: from Rey Auditory Verbal Learning Test (RAVLT), forgetting
+        slot_uri: extension:ravlt_forgetting
+      ravlt_immediate:
+        description: from Rey Auditory Verbal Learning Test (RAVLT), immediate recall trials
+        slot_uri: extension:ravlt_immediate
+      ravlt_learning:
+        description: from Rey Auditory Verbal Learning Test (RAVLT)
+        slot_uri: extension:ravlt_learning
+      ravlt_perc_forgetting:
+        description: from Rey Auditory Verbal Learning Test (RAVLT)
+        slot_uri: extension:ravlt_perc_forgetting
+      trabscor:
+        description: Trail Making Test A-B (TMT A-B) TMT A-B encompasses two trials, A and B
+        slot_uri: snomedct:273882000
+  MedicationStatement:
+    is_a: NamedEntity
+    id_prefixes: 
+      - FHIR
+    attributes:
+      medication:
+      reason:
+  Condition:
+    is_a: NamedEntity
+    id_prefixes: 
+      - FHIR
+    attributes:
+      code:
+       description: diagnosis or comorbidities
+      evidence:
+       description: symptoms
+  Organization:
+    is_a: NamedEntity
+    id_prefixes: 
+      - FHIR
+    attributes:
+      name:
+  Encounter:
+    is_a: NamedEntity
+    id_prefixes: 
+      - FHIR
+    attributes:
+      plannedstartdate:
+       description: month of data
+      appointment:
+       description: visit code  
